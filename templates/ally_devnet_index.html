@@ -7,7 +7,9 @@
   <meta name="theme-color" content="#0b1117">
   {% if public_origin %}<link rel="canonical" href="{{ public_origin }}/">{% endif %}
   <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='flashorca_assets/images/favicon.ico') }}">
+  {% if not debug %}
   <link rel="stylesheet" href="{{ url_for('static', filename='solana_mwa/wallet.css') }}">
+  {% endif %}
   <style>
     :root {
       color-scheme: dark;
@@ -39,6 +41,18 @@
 </head>
 <body>
   <main id="root" data-mwa-mount></main>
+  {% if debug %}
+  <script type="module" src="http://localhost:5175/@vite/client"></script>
+  <script type="module">
+    import RefreshRuntime from 'http://localhost:5175/@react-refresh';
+    RefreshRuntime.injectIntoGlobalHook(window);
+    window.$RefreshReg$ = () => {};
+    window.$RefreshSig$ = () => (type) => type;
+    window.__vite_plugin_react_preamble_installed__ = true;
+  </script>
+  <script type="module" src="http://localhost:5175/src/main.tsx"></script>
+  {% else %}
   <script type="module" src="{{ url_for('static', filename='solana_mwa/wallet.js') }}"></script>
+  {% endif %}
 </body>
 </html>

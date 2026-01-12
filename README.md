@@ -18,7 +18,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 RPC_URL=https://api.devnet.solana.com \
-FLASHORCA_PUBLIC_ORIGIN=http://localhost:8000 \
+FLASHORCA_PUBLIC_ORIGIN=http://localhost:9000 \
 python app.py
 ```
 

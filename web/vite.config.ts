@@ -24,8 +24,10 @@ export default defineConfig(({ mode }) => {
         origin: [
           'http://localhost:8000',
           'http://127.0.0.1:8000',
-          'http://localhost:5173',
-          'http://127.0.0.1:5173',
+          'http://localhost:9000',
+          'http://127.0.0.1:9000',
+          'http://localhost:5175',
+          'http://127.0.0.1:5175',
           'https://devnet.flashorca.com',
           'https://ally-devnet.flashorca.com',
         ],
@@ -38,21 +40,21 @@ export default defineConfig(({ mode }) => {
         'localhost',
         '127.0.0.1',
       ],
-      port: 5173, // 프론트
+      port: 5175, // 프론트
       proxy: {
         // /api/* 요청을 Flask(5050)로 전달
         '/api': {
-          target: 'http://localhost:8000',
+          target: 'http://localhost:9000',
           changeOrigin: true,
           secure: false,
         },
         // 헬스체크도 필요하면
         '/healthz': {
-          target: 'http://localhost:8000',
+          target: 'http://localhost:9000',
           changeOrigin: true,
           secure: false,
         },
-        '/rpc': { target: 'http://localhost:8000', changeOrigin: true, secure: false },
+        '/rpc': { target: 'http://localhost:9000', changeOrigin: true, secure: false },
       },
     },
     headers: { 'Access-Control-Allow-Origin': '*' },
