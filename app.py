@@ -20,6 +20,29 @@ def _get_public_origin() -> str:
     return ""
 
 
+def _is_devnet_env() -> bool:
+    cluster = (os.getenv("SOLANA_CLUSTER") or "").strip().lower()
+    if "devnet" in cluster:
+        return True
+    rpc_hint = (os.getenv("RPC_UPSTREAM") or os.getenv("RPC_URL") or "").lower()
+    return "devnet" in rpc_hint
+
+
+def _get_wallet_static_dir() -> str:
+    override = os.getenv("WALLET_STATIC_DIR") or os.getenv("ALLY_WALLET_STATIC_DIR")
+    if override:
+        return override.strip().strip("/")
+    devnet_dir = os.path.join(app.static_folder, "solana_mwa-devnet")
+    prod_dir = os.path.join(app.static_folder, "solana_mwa")
+    if _is_devnet_env() and os.path.isdir(devnet_dir):
+        return "solana_mwa-devnet"
+    if os.path.isdir(prod_dir):
+        return "solana_mwa"
+    if os.path.isdir(devnet_dir):
+        return "solana_mwa-devnet"
+    return "solana_mwa"
+
+
 def _is_debug() -> bool:
     for key in ("DEBUG", "FLASK_DEBUG"):
         raw = os.getenv(key, "").strip().lower()
@@ -34,6 +57,7 @@ def ally_devnet_home():
         "ally_devnet_index.html",
         public_origin=_get_public_origin(),
         debug=_is_debug(),
+        wallet_static_dir=_get_wallet_static_dir(),
     )
 
 

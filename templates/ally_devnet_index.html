@@ -8,7 +8,8 @@
   {% if public_origin %}<link rel="canonical" href="{{ public_origin }}/">{% endif %}
   <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='flashorca_assets/images/favicon.ico') }}">
   {% if not debug %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='solana_mwa/wallet.css') }}">
+  {% set wallet_static_dir = wallet_static_dir|default('solana_mwa', true) %}
+  <link rel="stylesheet" href="{{ url_for('static', filename=wallet_static_dir ~ '/wallet.css') }}">
   {% endif %}
   <style>
     :root {
@@ -52,7 +53,8 @@
   </script>
   <script type="module" src="http://localhost:5175/src/main.tsx"></script>
   {% else %}
-  <script type="module" src="{{ url_for('static', filename='solana_mwa/wallet.js') }}"></script>
+  {% set wallet_static_dir = wallet_static_dir|default('solana_mwa', true) %}
+  <script type="module" src="{{ url_for('static', filename=wallet_static_dir ~ '/wallet.js') }}"></script>
   {% endif %}
 </body>
 </html>

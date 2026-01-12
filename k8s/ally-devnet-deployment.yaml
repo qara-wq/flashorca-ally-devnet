@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: flashorca-ally-devnet
-          image: cr.qara.kr/qara/flashorca-ally-devnet-app:latest
+          image: cr.qara.kr/qara/flashorca-ally-devnet-app:876ef07
           command:
             - "gunicorn"
             - "-b"

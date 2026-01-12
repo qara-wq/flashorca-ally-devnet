@@ -7,6 +7,10 @@ npm install
 npm run build:devnet
 ```
 
+Note:
+- `build:devnet` outputs to `static/solana_mwa-devnet`. The app now auto-detects this folder.
+- If you want the stable path `static/solana_mwa`, run `npm run build:production` (env is already devnet), or set `BUILD_OUT_DIR=/Users/luke/www/flashorca-ally-devnet/static/solana_mwa` before building.
+
 ## 2) Build + push image
 ```bash
 # example tag
@@ -18,7 +22,7 @@ docker push "$IMAGE"
 or
 
 docker buildx build --platform linux/amd64,linux/arm64 \
-  -t cr.qara.kr/qara/flashorca-ally-devnet-app:latest --push .
+  -t "$IMAGE" --push .
 ```
 
 Update `k8s/ally-devnet-deployment.yaml` with the image tag.
