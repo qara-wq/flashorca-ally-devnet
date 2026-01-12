@@ -1,0 +1,11 @@
+.DS_Store
+__pycache__/
+*.pyc
+.env
+.env.*
+node_modules/
+web/node_modules/
+web/dist/
+static/solana_mwa/
+static/solana_mwa-devnet/
+static/solana_mwa-production/

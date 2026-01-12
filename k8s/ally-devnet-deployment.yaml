@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flashorca-ally-devnet-app
+  namespace: nexus-ai
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flashorca-ally-devnet
+  template:
+    metadata:
+      labels:
+        app: flashorca-ally-devnet
+    spec:
+      containers:
+        - name: flashorca-ally-devnet
+          image: cr.qara.kr/qara/flashorca-ally-devnet-app:latest
+          command:
+            - "gunicorn"
+            - "-b"
+            - "0.0.0.0:8000"
+            - "--workers"
+            - "2"
+            - "--threads"
+            - "4"
+            - "--access-logfile"
+            - "-"
+            - "--error-logfile"
+            - "-"
+            - "app:app"
+          ports:
+            - containerPort: 8000
+          env:
+            - name: FLASK_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: flashorca-ally-devnet-secrets
+                  key: FLASK_SECRET_KEY
+            - name: RPC_URL
+              value: "https://api.devnet.solana.com"
+            - name: SOLANA_CLUSTER
+              value: "devnet"
+            - name: FLASHORCA_PUBLIC_ORIGIN
+              value: "https://ally-devnet.flashorca.com"
+            - name: SESSION_COOKIE_DOMAIN
+              value: ".ally-devnet.flashorca.com"
+      imagePullSecrets:
+        - name: cr-qara-kr
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flashorca-ally-devnet-service
+  namespace: nexus-ai
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 8000
+  selector:
+    app: flashorca-ally-devnet
