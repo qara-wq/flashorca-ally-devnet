@@ -1,38 +1,38 @@
-# Ally 운영 스크립트 가이드 (Superstory 기준)
+# Ally Admin Scripts Guide (Superstory, devnet)
 
-이 문서는 Superstory Ally가 devnet 운영을 위해 사용할 수 있는 관리 스크립트들의 용도와 실행 방법을 정리합니다.
-키 파일은 보안상 **레포에 포함하지 않으며**, 별도 전달된 경로를 사용합니다.
+This document describes the admin scripts Superstory uses for devnet operations.
+Key files are security-sensitive and are not committed to the repo. Pass them via paths when running scripts.
 
-## 포함된 스크립트 목록
-다음 스크립트를 `/Users/luke/www/flashorca-ally-devnet/scripts`에 복사해 두었습니다.
+## Included scripts
+These scripts live under `/Users/luke/www/flashorca-ally-devnet/scripts`.
 
-- `ally_benefit.ts`: Ally 혜택(할인/보너스PP/없음) 조회 및 설정 (ops 권한)
-- `manage_pp.ts`: PP 조회/지급/소모 (ops 권한)
-- `manage_rp.ts`: RP 조회/할당/취소 (ops 권한)
-- `set_ally_authorities.ts`: ops/withdraw 권한 교체 (현재 권한 필요)
-- `set_ally_pop_enforcement.ts`: PoP enforcement on/off (withdraw 권한)
-- `withdraw_ally_vault.ts`: Ally vault에서 treasury로 인출 (withdraw 권한)
-- `verify_ally_vault.ts`: Ally vault 상태/잔액 검증 (읽기 전용)
-- `print_tx_events.ts`: 트랜잭션 로그/이벤트 출력 (디버그용)
+- `ally_benefit.ts`: Query or set ally benefit (discount/bonus/none) (ops authority)
+- `manage_pp.ts`: Query/grant/consume PP (ops authority)
+- `manage_rp.ts`: Query/allocate/cancel RP (ops authority)
+- `set_ally_authorities.ts`: Rotate ops/withdraw authority (current authority required)
+- `set_ally_pop_enforcement.ts`: Toggle PoP enforcement (withdraw authority)
+- `withdraw_ally_vault.ts`: Withdraw from ally vault to treasury (withdraw authority)
+- `verify_ally_vault.ts`: Verify ally vault balances (read-only)
+- `print_tx_events.ts`: Pretty-print tx logs/events (debug)
 
-## 사전 준비
-### 1) 키 파일(레포 외부 보관)
-Superstory Ally 기준으로 아래 두 키를 사용합니다.
+## Prerequisites
+### 1) Key files (kept outside the repo)
+For Superstory, use these two keys:
 
-- Ops 권한 키: `/Users/luke/solana/flashorca_a2e/keys/devnet/ally_superstory_ops.json`
-- Withdraw 권한 키: `/Users/luke/solana/flashorca_a2e/keys/devnet/ally_superstory_withdraw.json`
+- Ops key: `/Users/luke/solana/flashorca_a2e/keys/devnet/ally_superstory_ops.json`
+- Withdraw key: `/Users/luke/solana/flashorca_a2e/keys/devnet/ally_superstory_withdraw.json`
 
-레포에 복사하지 말고, 실행 시 경로를 전달합니다.
+Do not copy them into the repo. Pass their paths when running scripts.
 
-### 2) IDL/Types 파일
-스크립트는 다음 경로를 기대합니다.
+### 2) IDL/Types files
+These scripts expect:
 
 - `target/idl/reward_vault.json`
 - `target/types/reward_vault.ts`
 
-현재 레포에는 `target/`이 없으므로, 아래 중 하나로 준비하세요.
+You already copied these into the repo, so you can skip this step. If you ever need to refresh them:
 
-1) 기존 `flashorca_a2e` 빌드 산출물 복사
+1) Copy from `flashorca_a2e` build output
 ```bash
 mkdir -p /Users/luke/www/flashorca-ally-devnet/target/idl
 mkdir -p /Users/luke/www/flashorca-ally-devnet/target/types
@@ -40,19 +40,19 @@ cp /Users/luke/solana/flashorca_a2e/target/idl/reward_vault.json /Users/luke/www
 cp /Users/luke/solana/flashorca_a2e/target/types/reward_vault.ts /Users/luke/www/flashorca-ally-devnet/target/types/
 ```
 
-2) 별도 Anchor 워크스페이스에서 `anchor build`로 생성 후 동일 위치에 복사
+2) Or build in an Anchor workspace and copy to the same paths.
 
-> `target/`는 생성 산출물이므로 커밋하지 않는 것을 권장합니다.
+Note: `target/` is generated output. Decide whether you want it committed or ignored.
 
-### 3) Node 실행 환경
-스크립트는 `ts-node`와 `@coral-xyz/anchor`, `@solana/web3.js`, `@solana/spl-token`, `bs58` 등을 사용합니다.
-이 레포에는 루트 `package.json`이 없으므로, 다음 중 하나를 권장합니다.
+### 3) Node runtime
+These scripts require `ts-node`, `@coral-xyz/anchor`, `@solana/web3.js`, `@solana/spl-token`, and `bs58`.
+There is no root `package.json`, so use one of these approaches:
 
-- 글로벌 `ts-node` + 필요한 패키지 설치
-- 기존 `flashorca_a2e` 레포의 Node 환경을 활용해 실행
+- Global `ts-node` and required packages
+- Reuse the Node environment from `flashorca_a2e`
 
-## 공통 환경 변수 (예시)
-아래는 예시이며, 실제 값은 운영 환경에 맞게 설정하세요.
+## Common env vars (example)
+Adjust these to your environment:
 
 ```
 RPC_URL=https://api.devnet.solana.com
@@ -62,67 +62,67 @@ ALLY_OPS_KEYPAIR=/Users/luke/solana/flashorca_a2e/keys/devnet/ally_superstory_op
 ALLY_WITHDRAW_KEYPAIR=/Users/luke/solana/flashorca_a2e/keys/devnet/ally_superstory_withdraw.json
 ```
 
-`devnet.env` 같은 파일을 만들어 `--env`로 전달할 수 있습니다.
-키 파일 경로가 포함된 환경 파일은 **레포 외부**에 두거나 별도 ignore 처리하세요.
+You can put them in a `devnet.env` file and pass `--env`.
+If the file contains key paths, keep it outside the repo or ignore it.
 
-## 스크립트별 사용 방법
-아래 예시는 `flashorca-ally-devnet` 루트에서 실행하는 기준입니다.
+## Script usage
+All examples assume you run from the `flashorca-ally-devnet` root.
 
-### 1) Ally 혜택 설정/조회 (ops 권한)
-조회:
+### 1) Ally benefit (ops authority)
+Query:
 ```bash
 ts-node scripts/ally_benefit.ts --action query --ally <ALLY_NFT_MINT>
 ```
 
-설정(할인 15%):
+Set (15% discount):
 ```bash
 ts-node scripts/ally_benefit.ts --action set --mode discount --bps 1500 \
   --ally <ALLY_NFT_MINT> \
   --authority /Users/luke/solana/flashorca_a2e/keys/devnet/ally_superstory_ops.json
 ```
 
-### 2) RP 관리 (ops 권한)
-조회:
+### 2) RP management (ops authority)
+Query:
 ```bash
 ts-node scripts/manage_rp.ts --action query --ally <ALLY_NFT_MINT> --user <USER_PUBKEY>
 ```
 
-할당:
+Allocate:
 ```bash
 ts-node scripts/manage_rp.ts --action allocate --amount 5000000 \
   --ally <ALLY_NFT_MINT> --user <USER_PUBKEY> \
   --authority /Users/luke/solana/flashorca_a2e/keys/devnet/ally_superstory_ops.json
 ```
 
-취소:
+Cancel:
 ```bash
 ts-node scripts/manage_rp.ts --action cancel --amount 5000000 \
   --ally <ALLY_NFT_MINT> --user <USER_PUBKEY> \
   --authority /Users/luke/solana/flashorca_a2e/keys/devnet/ally_superstory_ops.json
 ```
 
-### 3) PP 관리 (ops 권한)
-조회:
+### 3) PP management (ops authority)
+Query:
 ```bash
 ts-node scripts/manage_pp.ts --action query --ally <ALLY_NFT_MINT> --user <USER_PUBKEY>
 ```
 
-지급:
+Grant:
 ```bash
 ts-node scripts/manage_pp.ts --action grant --amount 1500000 \
   --ally <ALLY_NFT_MINT> --user <USER_PUBKEY> \
   --authority /Users/luke/solana/flashorca_a2e/keys/devnet/ally_superstory_ops.json
 ```
 
-소모:
+Consume:
 ```bash
 ts-node scripts/manage_pp.ts --action consume --amount 1500000 \
   --ally <ALLY_NFT_MINT> --user <USER_PUBKEY> \
   --authority /Users/luke/solana/flashorca_a2e/keys/devnet/ally_superstory_ops.json
 ```
 
-### 4) Ally 권한 교체 (ops/withdraw)
-Ops 권한 교체:
+### 4) Rotate ally authorities (ops/withdraw)
+Rotate ops authority:
 ```bash
 ts-node scripts/set_ally_authorities.ts --type ops \
   --ally <ALLY_NFT_MINT> \
@@ -130,7 +130,7 @@ ts-node scripts/set_ally_authorities.ts --type ops \
   --authority /Users/luke/solana/flashorca_a2e/keys/devnet/ally_superstory_ops.json
 ```
 
-Withdraw 권한 교체:
+Rotate withdraw authority:
 ```bash
 ts-node scripts/set_ally_authorities.ts --type withdraw \
   --ally <ALLY_NFT_MINT> \
@@ -138,20 +138,20 @@ ts-node scripts/set_ally_authorities.ts --type withdraw \
   --authority /Users/luke/solana/flashorca_a2e/keys/devnet/ally_superstory_withdraw.json
 ```
 
-### 5) PoP Enforcement on/off (withdraw 권한)
-조회:
+### 5) PoP enforcement on/off (withdraw authority)
+Query:
 ```bash
 ts-node scripts/set_ally_pop_enforcement.ts --action query --ally <ALLY_NFT_MINT>
 ```
 
-설정:
+Set:
 ```bash
 ts-node scripts/set_ally_pop_enforcement.ts --action set --enforce true \
   --ally <ALLY_NFT_MINT> \
   --authority /Users/luke/solana/flashorca_a2e/keys/devnet/ally_superstory_withdraw.json
 ```
 
-### 6) Ally Vault 인출 (withdraw 권한)
+### 6) Withdraw from ally vault (withdraw authority)
 ```bash
 ts-node --transpile-only scripts/withdraw_ally_vault.ts \
   --ally <ALLY_NFT_MINT> \
@@ -159,29 +159,29 @@ ts-node --transpile-only scripts/withdraw_ally_vault.ts \
   --authority /Users/luke/solana/flashorca_a2e/keys/devnet/ally_superstory_withdraw.json
 ```
 
-### 7) Ally Vault 검증 (읽기 전용)
-특정 Ally만 확인:
+### 7) Verify ally vault (read-only)
+Single ally:
 ```bash
 ts-node --transpile-only scripts/verify_ally_vault.ts --ally <ALLY_NFT_MINT>
 ```
 
-모든 Ally 검사:
+All allies:
 ```bash
 ts-node --transpile-only scripts/verify_ally_vault.ts --all
 ```
 
-### 8) 트랜잭션 이벤트/로그 확인 (디버그)
+### 8) Print tx events/logs (debug)
 ```bash
 ts-node scripts/print_tx_events.ts <TXID> --rpc https://api.devnet.solana.com
 ```
 
-## 권장 운영 흐름 (요약)
-1) `verify_ally_vault.ts`로 상태 점검  
-2) 필요 시 `manage_rp.ts` / `manage_pp.ts`로 보상 조정  
-3) 정책 변경은 `ally_benefit.ts` / `set_ally_pop_enforcement.ts`  
-4) 권한 교체는 `set_ally_authorities.ts`  
-5) 인출은 `withdraw_ally_vault.ts`  
+## Recommended ops flow
+1) Check state with `verify_ally_vault.ts`
+2) Adjust rewards with `manage_rp.ts` / `manage_pp.ts` if needed
+3) Change policy via `ally_benefit.ts` / `set_ally_pop_enforcement.ts`
+4) Rotate authorities with `set_ally_authorities.ts`
+5) Withdraw with `withdraw_ally_vault.ts`
 
-## 보안 메모
-- 키 파일은 절대 레포에 커밋하지 않습니다.
-- 실행 시 `--authority` 또는 환경 변수로만 전달하세요.
+## Security notes
+- Never commit key files to the repo.
+- Pass keys via `--authority` or environment variables only.
