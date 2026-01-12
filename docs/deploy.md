@@ -36,6 +36,8 @@ kubectl apply -f k8s/ally-devnet-ingress.yaml
 
 or
 
+kubectl -n nexus-ai set image deployment/flashorca-ally-devnet-app \
+  flashorca-ally-devnet=$IMAGE
 kubectl -n nexus-ai rollout restart deployment/flashorca-ally-devnet-app
 ```
 
