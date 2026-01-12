@@ -14,6 +14,7 @@ These scripts live under `/Users/luke/www/flashorca-ally-devnet/scripts`.
 - `withdraw_ally_vault.ts`: Withdraw from ally vault to treasury (withdraw authority)
 - `verify_ally_vault.ts`: Verify ally vault balances (read-only)
 - `print_tx_events.ts`: Pretty-print tx logs/events (debug)
+- `pyth-sol.ts`: Refresh SOL/USD oracle price (Hermes fetch, optional on-chain post)
 
 ## Prerequisites
 ### 1) Key files (kept outside the repo)
@@ -174,6 +175,17 @@ ts-node --transpile-only scripts/verify_ally_vault.ts --all
 ```bash
 ts-node scripts/print_tx_events.ts <TXID> --rpc https://api.devnet.solana.com
 ```
+
+### 9) Refresh SOL/USD oracle price (pyth-sol.ts)
+Use this when you see "Oracle price is stale" errors.
+```bash
+TS_NODE_TRANSPILE_ONLY=1 ts-node scripts/pyth-sol.ts --action query
+TS_NODE_TRANSPILE_ONLY=1 ts-node scripts/pyth-sol.ts --post --authority <KEYPAIR_PATH>
+TS_NODE_TRANSPILE_ONLY=1 ts-node scripts/pyth-sol.ts --post --update-feed --authority <KEYPAIR_PATH>
+```
+Notes:
+- `--authority` accepts keypair file path, JSON array, or base58 secret string.
+- Optional env: `RPC_URL`, `HERMES_URL`, `SOL_USD_FEED_ID`, `AUTHORITY_KEYPAIR`, `POST`, `UPDATE_FEED`, `CU_PRICE`.
 
 ## Recommended ops flow
 1) Check state with `verify_ally_vault.ts`
