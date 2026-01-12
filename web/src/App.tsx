@@ -3613,7 +3613,7 @@ export default function App() {
   //console.log('render', { connected, primaryIsBrowse });
 
   return (
-    <div className="assistant-wrap reward-claim-root" style={{ padding: 24, display: 'grid', gap: 12 }}>
+    <div className="assistant-wrap reward-claim-root" style={{ padding: 'clamp(16px, 2.2vw, 24px)', display: 'grid', gap: 12 }}>
       <style>{`
         .fo-toast-stack {
           position: fixed;
@@ -3630,13 +3630,13 @@ export default function App() {
           grid-template-columns: auto 1fr auto;
           gap: 10px;
           align-items: start;
-          background: linear-gradient(135deg, rgba(18, 30, 44, 0.95), rgba(8, 14, 24, 0.92));
-          border: 1px solid rgba(140, 215, 255, 0.35);
+          background: #0f151c;
+          border: 1px solid rgba(255, 255, 255, 0.12);
           border-left: 4px solid #1ec2ff;
-          border-radius: 14px;
+          border-radius: 10px;
           padding: 12px 14px;
           color: #eaf7ff;
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+          box-shadow: none;
           pointer-events: auto;
         }
         .fo-toast.success { border-left-color: #35d07f; }
@@ -3669,22 +3669,27 @@ export default function App() {
           max-width: 1180px;
           margin: 0 auto;
           padding: 0 1rem;
+          overflow-wrap: anywhere;
+        }
+        .assistant-wrap,
+        .assistant-wrap * {
+          box-sizing: border-box;
         }
         .reward-claim-root {
-          background: linear-gradient(180deg, rgba(8, 14, 23, 0.95), rgba(4, 7, 11, 0.9));
-          border-radius: 24px;
+          background: #0b1117;
+          border-radius: 16px;
           border: 1px solid rgba(255, 255, 255, 0.08);
-          box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+          box-shadow: none;
         }
         #assistant-status {
           width: 100%;
         }
         .value-loop {
-          background: linear-gradient(120deg, rgba(22, 44, 64, 0.85), rgba(8, 18, 28, 0.95));
-          border-radius: 18px;
+          background: #0f1720;
+          border-radius: 14px;
           padding: 14px 16px 16px;
-          border: 1px solid rgba(126, 216, 255, 0.35);
-          box-shadow: 0 18px 44px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(126, 216, 255, 0.2) inset;
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          box-shadow: none;
           color: #eaf7ff;
           display: grid;
           gap: 10px;
@@ -3695,11 +3700,17 @@ export default function App() {
           justify-content: space-between;
           gap: 12px;
           flex-wrap: wrap;
+          min-width: 0;
+        }
+        .value-loop__header > * {
+          min-width: 0;
         }
         .value-loop__title {
           display: flex;
           align-items: center;
           gap: 10px;
+          flex-wrap: wrap;
+          min-width: 0;
         }
         .value-loop__eyebrow {
           background: rgba(76, 199, 255, 0.18);
@@ -3719,16 +3730,22 @@ export default function App() {
           display: inline-flex;
           align-items: center;
           gap: 6px;
+          flex-wrap: wrap;
+          min-width: 0;
         }
         .value-loop__wallet {
           display: inline-flex;
           align-items: baseline;
           gap: 8px;
           padding: 8px 12px;
-          background: rgba(255, 255, 255, 0.06);
-          border-radius: 12px;
+          background: rgba(255, 255, 255, 0.04);
+          border-radius: 10px;
           border: 1px solid rgba(255, 255, 255, 0.08);
-          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+          box-shadow: none;
+          max-width: 100%;
+          flex-wrap: wrap;
+          row-gap: 4px;
+          min-width: 0;
         }
         .value-loop__wallet-label {
           font-size: 13px;
@@ -3737,10 +3754,11 @@ export default function App() {
         }
         .value-loop__wallet-value {
           font-size: clamp(20px, 2.4vw, 24px);
-          font-weight: 800;
+          font-weight: 700;
           color: #fff;
-          text-shadow: 0 0 18px rgba(126, 216, 255, 0.35);
           letter-spacing: -0.01em;
+          max-width: 100%;
+          overflow-wrap: anywhere;
         }
         .value-loop__grid {
           display: grid;
@@ -3749,37 +3767,35 @@ export default function App() {
           align-items: stretch;
         }
         .value-node {
-          background: rgba(5, 15, 23, 0.74);
+          background: rgba(12, 18, 24, 0.8);
           border: 1px solid rgba(255, 255, 255, 0.08);
-          border-radius: 14px;
+          border-radius: 12px;
           padding: 12px;
           display: grid;
           gap: 6px;
           position: relative;
-          overflow: hidden;
-        }
-        .value-node::after {
-          content: '';
-          position: absolute;
-          inset: 0;
-          border-radius: 14px;
-          pointer-events: none;
-          background: radial-gradient(circle at 22% 24%, rgba(126, 216, 255, 0.12), transparent 45%);
+          min-width: 0;
         }
         .value-node__label {
           font-size: 13px;
           color: #9ac6d6;
           letter-spacing: 0.02em;
           font-weight: 700;
+          overflow-wrap: anywhere;
         }
         .value-node__value {
-          font-size: clamp(22px, 3vw, 30px);
-          font-weight: 800;
+          font-size: clamp(20px, 3vw, 28px);
+          font-weight: 700;
           color: #fff;
           display: inline-flex;
           align-items: baseline;
           gap: 6px;
+          flex-wrap: wrap;
+          row-gap: 4px;
           letter-spacing: -0.01em;
+          min-width: 0;
+          max-width: 100%;
+          overflow-wrap: anywhere;
         }
         .value-node__unit {
           font-size: 13px;
@@ -3790,13 +3806,14 @@ export default function App() {
         .value-node__hint {
           font-size: 12px;
           color: #a8d9ff;
+          overflow-wrap: anywhere;
         }
         .value-node--rp {
           border-color: rgba(111, 220, 189, 0.32);
         }
         .value-node--forca {
           border-color: rgba(126, 216, 255, 0.42);
-          background: linear-gradient(135deg, rgba(17, 53, 72, 0.92), rgba(8, 25, 36, 0.92));
+          background: rgba(12, 24, 32, 0.9);
         }
         .value-node--pp {
           border-color: rgba(255, 183, 92, 0.35);
@@ -3807,13 +3824,12 @@ export default function App() {
           justify-content: center;
           gap: 8px;
           color: #9ad7ff;
-          text-shadow: 0 0 10px rgba(76, 199, 255, 0.4);
         }
         .value-loop__arrow-line {
           display: block;
-          width: 46px;
-          height: 2px;
-          background: linear-gradient(90deg, rgba(126, 216, 255, 0.08), rgba(126, 216, 255, 0.65));
+          width: 36px;
+          height: 1px;
+          background: rgba(154, 215, 255, 0.4);
           border-radius: 999px;
         }
         .value-loop__arrow-icon {
@@ -3835,18 +3851,20 @@ export default function App() {
           }
         }
         .assistant-card {
-          background: #08161b;
+          background: #0f151c;
           border: 1px solid rgba(255, 255, 255, 0.08);
-          border-radius: 12px;
+          border-radius: 10px;
           padding: 12px;
           color: #dff3ff;
-          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+          box-shadow: none;
           position: relative;
+          min-width: 0;
+          overflow-wrap: anywhere;
         }
         .assistant-card.quest-highlight {
-          border-color: rgba(76, 199, 255, 0.9);
-          box-shadow: 0 12px 40px rgba(76, 199, 255, 0.25), 0 0 0 1px rgba(76, 199, 255, 0.35) inset;
-          background: linear-gradient(135deg, rgba(8, 22, 27, 0.95), rgba(14, 42, 54, 0.95));
+          border-color: rgba(76, 199, 255, 0.6);
+          box-shadow: none;
+          background: #0f1a22;
         }
         .quest-highlight-badge {
           position: absolute;
@@ -3876,10 +3894,12 @@ export default function App() {
         .assistant-meta {
           font-size: 0.85rem;
           color: #b8d3e1;
+          overflow-wrap: anywhere;
         }
         .assistant-subtle {
           font-size: 0.8rem;
           color: #9ac6d6;
+          overflow-wrap: anywhere;
         }
         .assistant-msgs {
           display: flex;
@@ -3895,14 +3915,15 @@ export default function App() {
           padding: 12px 14px;
           border-radius: 12px;
           line-height: 1.45;
+          overflow-wrap: anywhere;
         }
         .assistant-msg.typing .bubble {
           display: flex;
           align-items: center;
           gap: 10px;
-          background: linear-gradient(135deg, rgba(12, 36, 52, 0.9), rgba(8, 24, 32, 0.92));
-          border: 1px solid rgba(122, 215, 255, 0.3);
-          box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(122, 215, 255, 0.16) inset;
+          background: #0f151c;
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          box-shadow: none;
         }
         .typing-dots {
           display: inline-flex;
@@ -3943,6 +3964,7 @@ export default function App() {
           display: grid;
           gap: 8px;
           font-size: 0.95rem;
+          overflow-wrap: anywhere;
         }
         .assistant-richtext p {
           margin: 0;
@@ -4060,6 +4082,9 @@ export default function App() {
           font-weight: 600;
           cursor: pointer;
           text-decoration: none;
+          max-width: 100%;
+          white-space: normal;
+          text-align: center;
         }
         .assistant-btn.secondary {
           background: transparent;
@@ -4077,9 +4102,9 @@ export default function App() {
           margin-top: 8px;
           padding: 10px 12px;
           border-radius: 12px;
-          border: 1px solid rgba(122, 215, 255, 0.22);
-          background: linear-gradient(120deg, rgba(11, 31, 41, 0.9), rgba(6, 20, 29, 0.92));
-          box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          background: #0f151c;
+          box-shadow: none;
         }
         .assistant-wait-banner .wait-spinner {
           width: 28px;
@@ -4148,8 +4173,9 @@ export default function App() {
           gap: 4px;
           font-weight: 600;
           letter-spacing: -0.01em;
-          transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+          transition: background 0.15s ease, border-color 0.15s ease;
           min-width: 0;
+          max-width: 100%;
         }
         .tab-btn .tab-icon {
           font-size: 20px;
@@ -4157,7 +4183,10 @@ export default function App() {
         }
         .tab-btn .tab-label {
           font-size: 13px;
-          white-space: nowrap;
+          white-space: normal;
+          text-align: center;
+          line-height: 1.2;
+          overflow-wrap: anywhere;
         }
         .tab-btn:hover {
           border-color: rgba(255,255,255,0.35);
@@ -4165,7 +4194,6 @@ export default function App() {
         .tab-btn.active {
           background: #1b2430;
           border-color: rgba(255,255,255,0.35);
-          transform: translateY(-1px);
         }
         @media (max-width: 480px) {
           .tab-bar {
@@ -4185,7 +4213,6 @@ export default function App() {
         .snapshot-section {
           width: 100%;
           min-width: 0;
-          word-break: break-word;
           overflow-wrap: anywhere;
         }
         .snapshot-section code {
@@ -4301,21 +4328,14 @@ export default function App() {
         }
         .history-item {
           position: relative;
-          border-radius: 14px;
+          border-radius: 10px;
           padding: 12px;
-          background: linear-gradient(135deg, rgba(10, 20, 30, 0.75), rgba(6, 12, 20, 0.82));
-          border: 1px solid rgba(255,255,255,0.06);
-          box-shadow: 0 14px 30px rgba(0,0,0,0.35);
+          background: #0f151c;
+          border: 1px solid rgba(255,255,255,0.08);
+          box-shadow: none;
           display: grid;
           gap: 8px;
-          overflow: hidden;
-        }
-        .history-item::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: radial-gradient(circle at 18% 18%, rgba(126,216,255,0.08), transparent 36%);
-          pointer-events: none;
+          overflow-wrap: anywhere;
         }
         .history-meta {
           display: flex;
@@ -4351,11 +4371,13 @@ export default function App() {
           font-weight: 700;
           color: #fff;
           letter-spacing: -0.01em;
+          overflow-wrap: anywhere;
         }
         .history-amount {
           color: #8ef5b5;
           font-weight: 700;
           letter-spacing: 0.01em;
+          overflow-wrap: anywhere;
         }
         .history-sub {
           display: flex;
@@ -4363,10 +4385,12 @@ export default function App() {
           flex-wrap: wrap;
           color: #9ac6d6;
           font-size: 13px;
+          overflow-wrap: anywhere;
         }
         .history-link {
           color: #bde3ff;
           font-size: 13px;
+          overflow-wrap: anywhere;
         }
         .history-empty {
           display: grid;
