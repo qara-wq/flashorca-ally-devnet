@@ -218,9 +218,12 @@ async function main() {
       console.error('Simulation failed:', err.message);
       try {
         const logs = await err.getLogs(connection as any);
-        if (logs?.value?.logs?.length) {
+        const lines = Array.isArray(logs)
+          ? logs
+          : (logs as { value?: { logs?: string[] } }).value?.logs;
+        if (lines?.length) {
           console.error('RPC logs:');
-          for (const line of logs.value.logs) console.error(`  ${line}`);
+          for (const line of lines) console.error(`  ${line}`);
         }
       } catch (_) {}
     }
