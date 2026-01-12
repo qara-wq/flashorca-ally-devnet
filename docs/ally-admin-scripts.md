@@ -47,10 +47,29 @@ Note: `target/` is generated output. Decide whether you want it committed or ign
 
 ### 3) Node runtime
 These scripts require `ts-node`, `@coral-xyz/anchor`, `@solana/web3.js`, `@solana/spl-token`, and `bs58`.
-There is no root `package.json`, so use one of these approaches:
 
-- Global `ts-node` and required packages
-- Reuse the Node environment from `flashorca_a2e`
+Option A) Local install (recommended)
+```
+cd /Users/luke/www/flashorca-ally-devnet
+npm install
+npx ts-node scripts/verify_ally_vault.ts --all
+```
+
+Option B) Global ts-node (no local node_modules)
+```
+npm i -g ts-node typescript
+npm i -g @coral-xyz/anchor @solana/web3.js @solana/spl-token bs58 \
+  @pythnetwork/hermes-client @pythnetwork/pyth-solana-receiver
+export NODE_PATH="$(npm root -g)"
+TS_NODE_TRANSPILE_ONLY=1 ts-node scripts/verify_ally_vault.ts --all
+```
+Tip: add `export NODE_PATH="$(npm root -g)"` to your shell profile to keep it persistent.
+
+Option C) Reuse the Node environment from `flashorca_a2e`
+```
+NODE_PATH=/Users/luke/solana/flashorca_a2e/node_modules \
+  TS_NODE_TRANSPILE_ONLY=1 ts-node scripts/verify_ally_vault.ts --all
+```
 
 ## Common env vars (example)
 Adjust these to your environment:
