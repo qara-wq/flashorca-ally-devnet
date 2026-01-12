@@ -1,0 +1,3340 @@
+{
+  "address": "eD97PpKEcqEWZtZJKttwc6RfDkowcybP4mJskPn1uqf",
+  "metadata": {
+    "name": "reward_vault",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Reward Vault program (Anchor)"
+  },
+  "instructions": [
+    {
+      "name": "allocate_claimable_rp",
+      "discriminator": [
+        49,
+        119,
+        70,
+        128,
+        93,
+        57,
+        157,
+        106
+      ],
+      "accounts": [
+        {
+          "name": "ops_authority",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "ally"
+          ]
+        },
+        {
+          "name": "ally",
+          "writable": true
+        },
+        {
+          "name": "vault_state",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "user_ledger",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114,
+                  95,
+                  108,
+                  101,
+                  100,
+                  103,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user_ledger.user",
+                "account": "UserLedger"
+              },
+              {
+                "kind": "account",
+                "path": "ally.nft_mint",
+                "account": "AllyAccount"
+              }
+            ]
+          }
+        },
+        {
+          "name": "pop_profile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  111,
+                  112
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user_ledger.user",
+                "account": "UserLedger"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "forca_equiv_amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "cancel_allocated_rp",
+      "discriminator": [
+        217,
+        10,
+        136,
+        224,
+        212,
+        46,
+        133,
+        72
+      ],
+      "accounts": [
+        {
+          "name": "ops_authority",
+          "signer": true,
+          "relations": [
+            "ally"
+          ]
+        },
+        {
+          "name": "ally",
+          "writable": true
+        },
+        {
+          "name": "vault_state",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "user_ledger",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114,
+                  95,
+                  108,
+                  101,
+                  100,
+                  103,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user_ledger.user",
+                "account": "UserLedger"
+              },
+              {
+                "kind": "account",
+                "path": "ally.nft_mint",
+                "account": "AllyAccount"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "cancel_amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "claim_rp",
+      "discriminator": [
+        89,
+        196,
+        234,
+        5,
+        100,
+        197,
+        24,
+        219
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "user_ata",
+          "writable": true
+        },
+        {
+          "name": "ally",
+          "writable": true
+        },
+        {
+          "name": "vault_state",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault_signer",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  115,
+                  105,
+                  103,
+                  110,
+                  101,
+                  114
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "ally_vault_ata",
+          "writable": true
+        },
+        {
+          "name": "user_ledger",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114,
+                  95,
+                  108,
+                  101,
+                  100,
+                  103,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              },
+              {
+                "kind": "account",
+                "path": "ally.nft_mint",
+                "account": "AllyAccount"
+              }
+            ]
+          }
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "pop_profile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  111,
+                  112
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "claim_guard",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  108,
+                  97,
+                  105,
+                  109,
+                  95,
+                  103,
+                  117,
+                  97,
+                  114,
+                  100
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              },
+              {
+                "kind": "account",
+                "path": "ally.nft_mint",
+                "account": "AllyAccount"
+              }
+            ]
+          }
+        },
+        {
+          "name": "pyth_sol_usd_price_feed"
+        },
+        {
+          "name": "canonical_pool_forca_sol"
+        },
+        {
+          "name": "mock_oracle_sol"
+        },
+        {
+          "name": "mock_pool_forca"
+        },
+        {
+          "name": "pool_forca_reserve"
+        },
+        {
+          "name": "pool_sol_reserve"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount_forca",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "consume_pp",
+      "discriminator": [
+        94,
+        196,
+        161,
+        10,
+        61,
+        121,
+        135,
+        210
+      ],
+      "accounts": [
+        {
+          "name": "ops_authority",
+          "signer": true,
+          "relations": [
+            "ally"
+          ]
+        },
+        {
+          "name": "ally"
+        },
+        {
+          "name": "user_ledger",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114,
+                  95,
+                  108,
+                  101,
+                  100,
+                  103,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user_ledger.user",
+                "account": "UserLedger"
+              },
+              {
+                "kind": "account",
+                "path": "ally.nft_mint",
+                "account": "AllyAccount"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault_state",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "amount_pp_e6",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "convert_to_scoped_pp",
+      "discriminator": [
+        112,
+        238,
+        195,
+        2,
+        143,
+        214,
+        143,
+        89
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "user_ata",
+          "writable": true
+        },
+        {
+          "name": "vault_state",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "ally",
+          "writable": true
+        },
+        {
+          "name": "nft_mint",
+          "relations": [
+            "ally"
+          ]
+        },
+        {
+          "name": "ally_vault_ata",
+          "writable": true
+        },
+        {
+          "name": "user_ledger",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114,
+                  95,
+                  108,
+                  101,
+                  100,
+                  103,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              },
+              {
+                "kind": "account",
+                "path": "ally.nft_mint",
+                "account": "AllyAccount"
+              }
+            ]
+          }
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "pyth_sol_usd_price_feed"
+        },
+        {
+          "name": "canonical_pool_forca_sol"
+        },
+        {
+          "name": "mock_oracle_sol"
+        },
+        {
+          "name": "mock_pool_forca"
+        },
+        {
+          "name": "pool_forca_reserve"
+        },
+        {
+          "name": "pool_sol_reserve"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount_forca",
+          "type": "u64"
+        },
+        {
+          "name": "sol_price_usd_e6",
+          "type": "u64"
+        },
+        {
+          "name": "forca_per_sol_e6",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "deposit_forca",
+      "discriminator": [
+        30,
+        240,
+        168,
+        148,
+        164,
+        232,
+        109,
+        154
+      ],
+      "accounts": [
+        {
+          "name": "withdraw_authority",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "ally"
+          ]
+        },
+        {
+          "name": "ally",
+          "writable": true
+        },
+        {
+          "name": "nft_mint",
+          "relations": [
+            "ally"
+          ]
+        },
+        {
+          "name": "vault_state",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "ally_vault_ata",
+          "writable": true
+        },
+        {
+          "name": "ally_treasury_ata",
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "grant_bonus_pp",
+      "discriminator": [
+        70,
+        215,
+        17,
+        177,
+        159,
+        141,
+        74,
+        64
+      ],
+      "accounts": [
+        {
+          "name": "ops_authority",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "ally"
+          ]
+        },
+        {
+          "name": "ally",
+          "writable": true
+        },
+        {
+          "name": "vault_state",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "docs": [
+            "The user to receive PP bonus"
+          ]
+        },
+        {
+          "name": "user_ledger",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114,
+                  95,
+                  108,
+                  101,
+                  100,
+                  103,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              },
+              {
+                "kind": "account",
+                "path": "ally.nft_mint",
+                "account": "AllyAccount"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount_pp_e6",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "initialize_vault",
+      "discriminator": [
+        48,
+        191,
+        163,
+        44,
+        71,
+        129,
+        63,
+        164
+      ],
+      "accounts": [
+        {
+          "name": "vault_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault_signer",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  115,
+                  105,
+                  103,
+                  110,
+                  101,
+                  114
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "forca_mint"
+        },
+        {
+          "name": "pop_admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "econ_admin",
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "fee_c_bps",
+          "type": "u16"
+        },
+        {
+          "name": "tax_d_bps",
+          "type": "u16"
+        },
+        {
+          "name": "margin_b_bps",
+          "type": "u16"
+        }
+      ]
+    },
+    {
+      "name": "register_ally",
+      "discriminator": [
+        6,
+        244,
+        46,
+        213,
+        31,
+        215,
+        90,
+        111
+      ],
+      "accounts": [
+        {
+          "name": "vault_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "econ_admin",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "vault_state"
+          ]
+        },
+        {
+          "name": "forca_mint"
+        },
+        {
+          "name": "vault_signer",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  115,
+                  105,
+                  103,
+                  110,
+                  101,
+                  114
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "ally_nft_mint",
+          "docs": [
+            "Ally identifier NFT mint (any mint acceptable)"
+          ]
+        },
+        {
+          "name": "ops_authority",
+          "docs": [
+            "operations authority (alloc/consume/etc)"
+          ],
+          "signer": true
+        },
+        {
+          "name": "withdraw_authority",
+          "docs": [
+            "withdraw authority (cold key for vault withdrawals / deposits)"
+          ],
+          "signer": true
+        },
+        {
+          "name": "ally_treasury_ata",
+          "writable": true
+        },
+        {
+          "name": "ally",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  108,
+                  108,
+                  121
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "ally_nft_mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "ally_vault_ata",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  108,
+                  108,
+                  121,
+                  95,
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "ally_nft_mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "rent",
+          "address": "SysvarRent111111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "role",
+          "type": {
+            "defined": {
+              "name": "AllyRole"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "set_ally_benefit",
+      "discriminator": [
+        255,
+        16,
+        247,
+        163,
+        79,
+        88,
+        19,
+        91
+      ],
+      "accounts": [
+        {
+          "name": "ops_authority",
+          "signer": true,
+          "relations": [
+            "ally"
+          ]
+        },
+        {
+          "name": "ally",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "mode",
+          "type": {
+            "defined": {
+              "name": "BenefitMode"
+            }
+          }
+        },
+        {
+          "name": "bps",
+          "type": "u16"
+        }
+      ]
+    },
+    {
+      "name": "set_ally_ops_authority",
+      "discriminator": [
+        111,
+        28,
+        102,
+        51,
+        202,
+        221,
+        91,
+        208
+      ],
+      "accounts": [
+        {
+          "name": "ops_authority",
+          "signer": true,
+          "relations": [
+            "ally"
+          ]
+        },
+        {
+          "name": "ally",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "new_ops_authority",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "set_ally_pop_enforcement",
+      "discriminator": [
+        171,
+        101,
+        130,
+        13,
+        212,
+        146,
+        221,
+        157
+      ],
+      "accounts": [
+        {
+          "name": "withdraw_authority",
+          "signer": true,
+          "relations": [
+            "ally"
+          ]
+        },
+        {
+          "name": "ally",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "enforce",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "set_ally_withdraw_authority",
+      "discriminator": [
+        60,
+        232,
+        136,
+        180,
+        67,
+        179,
+        50,
+        227
+      ],
+      "accounts": [
+        {
+          "name": "withdraw_authority",
+          "signer": true,
+          "relations": [
+            "ally"
+          ]
+        },
+        {
+          "name": "ally",
+          "writable": true
+        },
+        {
+          "name": "vault_state",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "new_treasury_ata"
+        }
+      ],
+      "args": [
+        {
+          "name": "new_withdraw_authority",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "set_econ_admin",
+      "discriminator": [
+        39,
+        240,
+        4,
+        154,
+        233,
+        71,
+        24,
+        117
+      ],
+      "accounts": [
+        {
+          "name": "vault_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "econ_admin",
+          "signer": true,
+          "relations": [
+            "vault_state"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "new_econ_admin",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "set_forca_usd",
+      "discriminator": [
+        185,
+        89,
+        128,
+        152,
+        167,
+        24,
+        192,
+        222
+      ],
+      "accounts": [
+        {
+          "name": "vault_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "pop_admin",
+          "signer": true,
+          "relations": [
+            "vault_state"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "forca_usd_e6",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "set_mock_oracles",
+      "discriminator": [
+        86,
+        112,
+        99,
+        104,
+        15,
+        12,
+        149,
+        226
+      ],
+      "accounts": [
+        {
+          "name": "vault_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "econ_admin",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "vault_state"
+          ]
+        },
+        {
+          "name": "mock_oracle_sol",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  99,
+                  107,
+                  95,
+                  111,
+                  114,
+                  97,
+                  99,
+                  108,
+                  101,
+                  95,
+                  115,
+                  111,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "mock_pool_forca",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  109,
+                  111,
+                  99,
+                  107,
+                  95,
+                  112,
+                  111,
+                  111,
+                  108,
+                  95,
+                  102,
+                  111,
+                  114,
+                  99,
+                  97
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "sol_usd_e6",
+          "type": "u64"
+        },
+        {
+          "name": "forca_per_sol_e6",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "set_oracle_config",
+      "discriminator": [
+        96,
+        171,
+        6,
+        98,
+        153,
+        183,
+        233,
+        31
+      ],
+      "accounts": [
+        {
+          "name": "vault_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "econ_admin",
+          "signer": true,
+          "relations": [
+            "vault_state"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "verify_prices",
+          "type": "bool"
+        },
+        {
+          "name": "oracle_tolerance_bps",
+          "type": "u16"
+        },
+        {
+          "name": "pyth_sol_usd_price_feed",
+          "type": "pubkey"
+        },
+        {
+          "name": "canonical_pool_forca_sol",
+          "type": "pubkey"
+        },
+        {
+          "name": "canonical_pool_forca_reserve",
+          "type": "pubkey"
+        },
+        {
+          "name": "canonical_pool_sol_reserve",
+          "type": "pubkey"
+        },
+        {
+          "name": "use_mock_oracle",
+          "type": "bool"
+        },
+        {
+          "name": "pyth_max_stale_secs",
+          "type": "u64"
+        },
+        {
+          "name": "pyth_max_confidence_bps",
+          "type": "u16"
+        }
+      ]
+    },
+    {
+      "name": "set_params",
+      "discriminator": [
+        27,
+        234,
+        178,
+        52,
+        147,
+        2,
+        187,
+        141
+      ],
+      "accounts": [
+        {
+          "name": "vault_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "econ_admin",
+          "signer": true,
+          "relations": [
+            "vault_state"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "fee_c_bps",
+          "type": "u16"
+        },
+        {
+          "name": "tax_d_bps",
+          "type": "u16"
+        },
+        {
+          "name": "margin_b_bps",
+          "type": "u16"
+        }
+      ]
+    },
+    {
+      "name": "set_pause",
+      "discriminator": [
+        63,
+        32,
+        154,
+        2,
+        56,
+        103,
+        79,
+        45
+      ],
+      "accounts": [
+        {
+          "name": "vault_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "econ_admin",
+          "signer": true,
+          "relations": [
+            "vault_state"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "pause",
+          "type": "bool"
+        },
+        {
+          "name": "reason_code",
+          "type": "u16"
+        },
+        {
+          "name": "max_duration_secs",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "set_pop_admin",
+      "discriminator": [
+        76,
+        116,
+        139,
+        33,
+        168,
+        144,
+        223,
+        222
+      ],
+      "accounts": [
+        {
+          "name": "vault_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "pop_admin",
+          "signer": true,
+          "relations": [
+            "vault_state"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "new_pop_admin",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "set_pop_level",
+      "discriminator": [
+        103,
+        242,
+        55,
+        150,
+        86,
+        166,
+        120,
+        24
+      ],
+      "accounts": [
+        {
+          "name": "vault_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "pop_admin",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "vault_state"
+          ]
+        },
+        {
+          "name": "user",
+          "docs": [
+            "The user whose POP level is being set"
+          ]
+        },
+        {
+          "name": "pop_profile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  111,
+                  112
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "level",
+          "type": {
+            "defined": {
+              "name": "PopLevel"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "set_pop_params",
+      "discriminator": [
+        73,
+        114,
+        220,
+        88,
+        130,
+        196,
+        139,
+        42
+      ],
+      "accounts": [
+        {
+          "name": "withdraw_authority",
+          "signer": true,
+          "relations": [
+            "ally"
+          ]
+        },
+        {
+          "name": "ally",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "soft_daily_cap_usd_e6",
+          "type": "u64"
+        },
+        {
+          "name": "soft_cooldown_secs",
+          "type": "u64"
+        },
+        {
+          "name": "monthly_claim_limit",
+          "type": "u16"
+        },
+        {
+          "name": "hard_kyc_threshold_usd_e6",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "withdraw_forca",
+      "discriminator": [
+        53,
+        146,
+        208,
+        249,
+        182,
+        161,
+        181,
+        221
+      ],
+      "accounts": [
+        {
+          "name": "withdraw_authority",
+          "signer": true,
+          "relations": [
+            "ally"
+          ]
+        },
+        {
+          "name": "ally",
+          "writable": true
+        },
+        {
+          "name": "nft_mint",
+          "relations": [
+            "ally"
+          ]
+        },
+        {
+          "name": "vault_state",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault_signer",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  115,
+                  105,
+                  103,
+                  110,
+                  101,
+                  114
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "ally_vault_ata",
+          "writable": true
+        },
+        {
+          "name": "ally_treasury_ata",
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "AllyAccount",
+      "discriminator": [
+        117,
+        224,
+        92,
+        88,
+        216,
+        181,
+        214,
+        151
+      ]
+    },
+    {
+      "name": "ClaimGuard",
+      "discriminator": [
+        8,
+        69,
+        122,
+        85,
+        29,
+        119,
+        197,
+        90
+      ]
+    },
+    {
+      "name": "MockOracleSolUsd",
+      "discriminator": [
+        80,
+        35,
+        77,
+        41,
+        80,
+        232,
+        205,
+        62
+      ]
+    },
+    {
+      "name": "MockPoolForcaSol",
+      "discriminator": [
+        27,
+        7,
+        12,
+        70,
+        170,
+        234,
+        249,
+        230
+      ]
+    },
+    {
+      "name": "PopProfile",
+      "discriminator": [
+        111,
+        170,
+        103,
+        48,
+        170,
+        163,
+        45,
+        178
+      ]
+    },
+    {
+      "name": "UserLedger",
+      "discriminator": [
+        185,
+        84,
+        101,
+        128,
+        8,
+        6,
+        160,
+        83
+      ]
+    },
+    {
+      "name": "VaultState",
+      "discriminator": [
+        228,
+        196,
+        82,
+        165,
+        98,
+        210,
+        235,
+        152
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "AllocateRPEvent",
+      "discriminator": [
+        191,
+        136,
+        245,
+        230,
+        22,
+        184,
+        198,
+        164
+      ]
+    },
+    {
+      "name": "AllyBenefitSet",
+      "discriminator": [
+        237,
+        5,
+        248,
+        221,
+        48,
+        207,
+        46,
+        203
+      ]
+    },
+    {
+      "name": "AllyDepositEvent",
+      "discriminator": [
+        245,
+        224,
+        20,
+        169,
+        18,
+        4,
+        69,
+        109
+      ]
+    },
+    {
+      "name": "AllyOpsAuthorityUpdated",
+      "discriminator": [
+        70,
+        35,
+        171,
+        20,
+        224,
+        205,
+        118,
+        23
+      ]
+    },
+    {
+      "name": "AllyPopEnforcementSet",
+      "discriminator": [
+        78,
+        64,
+        154,
+        15,
+        113,
+        236,
+        143,
+        205
+      ]
+    },
+    {
+      "name": "AllyRegistered",
+      "discriminator": [
+        157,
+        189,
+        197,
+        228,
+        136,
+        166,
+        160,
+        154
+      ]
+    },
+    {
+      "name": "AllyWithdrawAuthorityUpdated",
+      "discriminator": [
+        239,
+        242,
+        31,
+        232,
+        122,
+        102,
+        244,
+        4
+      ]
+    },
+    {
+      "name": "AllyWithdrawEvent",
+      "discriminator": [
+        31,
+        92,
+        86,
+        168,
+        117,
+        96,
+        228,
+        80
+      ]
+    },
+    {
+      "name": "CancelRPEvent",
+      "discriminator": [
+        68,
+        44,
+        161,
+        5,
+        49,
+        217,
+        249,
+        177
+      ]
+    },
+    {
+      "name": "ClaimRPEvent",
+      "discriminator": [
+        152,
+        194,
+        145,
+        93,
+        155,
+        224,
+        83,
+        217
+      ]
+    },
+    {
+      "name": "ConsumePPEvent",
+      "discriminator": [
+        174,
+        52,
+        227,
+        69,
+        51,
+        254,
+        36,
+        235
+      ]
+    },
+    {
+      "name": "ConvertToPPEvent",
+      "discriminator": [
+        50,
+        9,
+        22,
+        99,
+        146,
+        116,
+        137,
+        131
+      ]
+    },
+    {
+      "name": "EconAdminUpdated",
+      "discriminator": [
+        173,
+        179,
+        118,
+        20,
+        96,
+        131,
+        197,
+        158
+      ]
+    },
+    {
+      "name": "GrantBonusPPEvent",
+      "discriminator": [
+        34,
+        125,
+        162,
+        251,
+        187,
+        147,
+        98,
+        148
+      ]
+    },
+    {
+      "name": "PopAdminUpdated",
+      "discriminator": [
+        102,
+        47,
+        33,
+        161,
+        60,
+        233,
+        77,
+        185
+      ]
+    },
+    {
+      "name": "PopParamsUpdated",
+      "discriminator": [
+        237,
+        4,
+        138,
+        210,
+        0,
+        154,
+        105,
+        115
+      ]
+    },
+    {
+      "name": "VaultInitialized",
+      "discriminator": [
+        180,
+        43,
+        207,
+        2,
+        18,
+        71,
+        3,
+        75
+      ]
+    },
+    {
+      "name": "VaultPauseEvent",
+      "discriminator": [
+        174,
+        145,
+        176,
+        6,
+        52,
+        202,
+        67,
+        175
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "Paused",
+      "msg": "Operation paused"
+    },
+    {
+      "code": 6001,
+      "name": "Overflow",
+      "msg": "Overflow"
+    },
+    {
+      "code": 6002,
+      "name": "InvalidBps",
+      "msg": "Invalid bps"
+    },
+    {
+      "code": 6003,
+      "name": "InvalidForcaDecimals",
+      "msg": "Invalid FORCA decimals (must be 6)"
+    },
+    {
+      "code": 6004,
+      "name": "InvalidMint",
+      "msg": "Invalid token mint"
+    },
+    {
+      "code": 6005,
+      "name": "InsufficientAllyBalance",
+      "msg": "Insufficient ally balance"
+    },
+    {
+      "code": 6006,
+      "name": "InsufficientVaultBalance",
+      "msg": "Insufficient vault balance"
+    },
+    {
+      "code": 6007,
+      "name": "InsufficientUnreservedBalance",
+      "msg": "Insufficient unreserved balance"
+    },
+    {
+      "code": 6008,
+      "name": "InsufficientReservedBalance",
+      "msg": "Insufficient reserved balance"
+    },
+    {
+      "code": 6009,
+      "name": "ZeroAmount",
+      "msg": "Zero amount not allowed"
+    },
+    {
+      "code": 6010,
+      "name": "InvalidQuote",
+      "msg": "Invalid quote values"
+    },
+    {
+      "code": 6011,
+      "name": "InsufficientRP",
+      "msg": "Insufficient RP allowance"
+    },
+    {
+      "code": 6012,
+      "name": "InsufficientPP",
+      "msg": "Insufficient PP balance"
+    },
+    {
+      "code": 6013,
+      "name": "AmountTooSmallAfterFee",
+      "msg": "Amount too small after fees"
+    },
+    {
+      "code": 6014,
+      "name": "InvalidTreasury",
+      "msg": "Invalid treasury token account"
+    },
+    {
+      "code": 6015,
+      "name": "InvalidVaultAta",
+      "msg": "Invalid vault token account"
+    },
+    {
+      "code": 6016,
+      "name": "PopDenied",
+      "msg": "POP level denies RP allocation"
+    },
+    {
+      "code": 6017,
+      "name": "SoftDailyCapExceeded",
+      "msg": "Soft POP daily cap exceeded"
+    },
+    {
+      "code": 6018,
+      "name": "CooldownNotElapsed",
+      "msg": "Cooldown not elapsed"
+    },
+    {
+      "code": 6019,
+      "name": "PopCapTooLow",
+      "msg": "Soft POP daily cap too low"
+    },
+    {
+      "code": 6020,
+      "name": "PopCooldownTooHigh",
+      "msg": "Soft POP cooldown too high"
+    },
+    {
+      "code": 6021,
+      "name": "InvalidAuthority",
+      "msg": "Invalid authority"
+    },
+    {
+      "code": 6022,
+      "name": "OracleMissing",
+      "msg": "Oracle proof accounts missing"
+    },
+    {
+      "code": 6023,
+      "name": "OracleOutOfTolerance",
+      "msg": "Oracle values out of tolerance"
+    },
+    {
+      "code": 6024,
+      "name": "OracleKeyMismatch",
+      "msg": "Oracle key mismatch"
+    },
+    {
+      "code": 6025,
+      "name": "OracleParseFailed",
+      "msg": "Oracle parsing failed"
+    },
+    {
+      "code": 6026,
+      "name": "OracleStale",
+      "msg": "Oracle price is stale"
+    },
+    {
+      "code": 6027,
+      "name": "InvalidBenefitMode",
+      "msg": "Invalid benefit mode value"
+    },
+    {
+      "code": 6028,
+      "name": "VerifyPricesLocked",
+      "msg": "verify_prices cannot be disabled once enabled"
+    },
+    {
+      "code": 6029,
+      "name": "InvalidPauseReason",
+      "msg": "Invalid pause reason code"
+    },
+    {
+      "code": 6030,
+      "name": "ManualForcaUsdDisabled",
+      "msg": "Manual FORCA/USD is only allowed when use_mock_oracle=true"
+    },
+    {
+      "code": 6031,
+      "name": "MockOracleLocked",
+      "msg": "use_mock_oracle cannot be re-enabled once disabled"
+    },
+    {
+      "code": 6032,
+      "name": "MonthlyClaimLimitExceeded",
+      "msg": "Monthly claim limit exceeded"
+    },
+    {
+      "code": 6033,
+      "name": "KycRequired",
+      "msg": "KYC required for claim"
+    },
+    {
+      "code": 6034,
+      "name": "PopMonthlyLimitTooLow",
+      "msg": "Monthly claim limit too low"
+    },
+    {
+      "code": 6035,
+      "name": "PopMonthlyLimitTooHigh",
+      "msg": "Monthly claim limit too high"
+    },
+    {
+      "code": 6036,
+      "name": "PopHardCutTooLow",
+      "msg": "KYC threshold too low"
+    },
+    {
+      "code": 6037,
+      "name": "OracleConfidenceTooWide",
+      "msg": "Oracle confidence interval too wide"
+    }
+  ],
+  "types": [
+    {
+      "name": "AllocateRPEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "ally_nft_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "forca_equiv_amount",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AllyAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "nft_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "ops_authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "withdraw_authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "treasury_ata",
+            "type": "pubkey"
+          },
+          {
+            "name": "vault_ata",
+            "type": "pubkey"
+          },
+          {
+            "name": "role",
+            "type": "u8"
+          },
+          {
+            "name": "balance_forca",
+            "type": "u64"
+          },
+          {
+            "name": "rp_reserved",
+            "type": "u64"
+          },
+          {
+            "name": "benefit_mode",
+            "type": "u8"
+          },
+          {
+            "name": "benefit_bps",
+            "type": "u16"
+          },
+          {
+            "name": "pop_enforced",
+            "type": "bool"
+          },
+          {
+            "name": "soft_daily_cap_usd_e6",
+            "type": "u64"
+          },
+          {
+            "name": "soft_cooldown_secs",
+            "type": "u64"
+          },
+          {
+            "name": "monthly_claim_limit",
+            "type": "u16"
+          },
+          {
+            "name": "hard_kyc_threshold_usd_e6",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AllyBenefitSet",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "ally_nft_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "mode",
+            "type": "u8"
+          },
+          {
+            "name": "bps",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AllyDepositEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "ally_nft_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AllyOpsAuthorityUpdated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "ally_nft_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "old_ops_authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "new_ops_authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "set_ts",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AllyPopEnforcementSet",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "ally_nft_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "pop_enforced",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AllyRegistered",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "ally_nft_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "ops_authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "withdraw_authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "role",
+            "type": "u8"
+          },
+          {
+            "name": "treasury_ata",
+            "type": "pubkey"
+          },
+          {
+            "name": "vault_ata",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AllyRole",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Marketing"
+          },
+          {
+            "name": "Dev"
+          },
+          {
+            "name": "Other"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AllyWithdrawAuthorityUpdated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "ally_nft_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "old_withdraw_authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "new_withdraw_authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "old_treasury_ata",
+            "type": "pubkey"
+          },
+          {
+            "name": "new_treasury_ata",
+            "type": "pubkey"
+          },
+          {
+            "name": "set_ts",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AllyWithdrawEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "ally_nft_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BenefitMode",
+      "repr": {
+        "kind": "rust"
+      },
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "None"
+          },
+          {
+            "name": "Discount"
+          },
+          {
+            "name": "BonusPP"
+          }
+        ]
+      }
+    },
+    {
+      "name": "CancelRPEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "ally_nft_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "cancel_amount",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ClaimGuard",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "ally_nft_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "day",
+            "type": "i64"
+          },
+          {
+            "name": "used_usd_e6",
+            "type": "u64"
+          },
+          {
+            "name": "last_claim_ts",
+            "type": "i64"
+          },
+          {
+            "name": "month_index",
+            "type": "i64"
+          },
+          {
+            "name": "month_claims",
+            "type": "u16"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ClaimRPEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "ally_nft_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount_forca",
+            "type": "u64"
+          },
+          {
+            "name": "net",
+            "type": "u64"
+          },
+          {
+            "name": "fee_c",
+            "type": "u64"
+          },
+          {
+            "name": "tax_d",
+            "type": "u64"
+          },
+          {
+            "name": "cur_hwm",
+            "type": "u64"
+          },
+          {
+            "name": "new_hwm",
+            "type": "u64"
+          },
+          {
+            "name": "tax_hwm",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ConsumePPEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "ally_nft_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount_pp_e6",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ConvertToPPEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "ally_nft_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount_forca",
+            "type": "u64"
+          },
+          {
+            "name": "margin_b",
+            "type": "u64"
+          },
+          {
+            "name": "pp_delta",
+            "type": "u64"
+          },
+          {
+            "name": "sol_price_usd_e6",
+            "type": "u64"
+          },
+          {
+            "name": "forca_per_sol_e6",
+            "type": "u64"
+          },
+          {
+            "name": "pyth_price_feed",
+            "type": "pubkey"
+          },
+          {
+            "name": "canonical_pool",
+            "type": "pubkey"
+          },
+          {
+            "name": "verify_prices",
+            "type": "bool"
+          },
+          {
+            "name": "oracle_tolerance_bps",
+            "type": "u16"
+          },
+          {
+            "name": "pyth_expo_i32",
+            "type": "i32"
+          },
+          {
+            "name": "pyth_conf_e8",
+            "type": "u64"
+          },
+          {
+            "name": "pyth_publish_ts",
+            "type": "i64"
+          },
+          {
+            "name": "cur_hwm",
+            "type": "u64"
+          },
+          {
+            "name": "new_hwm",
+            "type": "u64"
+          },
+          {
+            "name": "tax_hwm",
+            "type": "u64"
+          },
+          {
+            "name": "benefit_mode",
+            "type": "u8"
+          },
+          {
+            "name": "benefit_bps",
+            "type": "u16"
+          },
+          {
+            "name": "discount_forca",
+            "type": "u64"
+          },
+          {
+            "name": "bonus_pp_e6",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "EconAdminUpdated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "old_econ_admin",
+            "type": "pubkey"
+          },
+          {
+            "name": "new_econ_admin",
+            "type": "pubkey"
+          },
+          {
+            "name": "set_ts",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "GrantBonusPPEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "ally_nft_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount_pp_e6",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MockOracleSolUsd",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "sol_usd_e6",
+            "type": "u64"
+          },
+          {
+            "name": "expo_i32",
+            "type": "i32"
+          },
+          {
+            "name": "conf_e8",
+            "type": "u64"
+          },
+          {
+            "name": "publish_ts",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MockPoolForcaSol",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "forca_per_sol_e6",
+            "type": "u64"
+          },
+          {
+            "name": "reserve_forca_e6",
+            "type": "u64"
+          },
+          {
+            "name": "reserve_sol_e9",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PopAdminUpdated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "old_pop_admin",
+            "type": "pubkey"
+          },
+          {
+            "name": "new_pop_admin",
+            "type": "pubkey"
+          },
+          {
+            "name": "set_ts",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PopLevel",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Suspicious"
+          },
+          {
+            "name": "Soft"
+          },
+          {
+            "name": "Strong"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PopParamsUpdated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "ally_nft_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "old_soft_daily_cap_usd_e6",
+            "type": "u64"
+          },
+          {
+            "name": "old_soft_cooldown_secs",
+            "type": "u64"
+          },
+          {
+            "name": "old_monthly_claim_limit",
+            "type": "u16"
+          },
+          {
+            "name": "old_hard_kyc_threshold_usd_e6",
+            "type": "u64"
+          },
+          {
+            "name": "new_soft_daily_cap_usd_e6",
+            "type": "u64"
+          },
+          {
+            "name": "new_soft_cooldown_secs",
+            "type": "u64"
+          },
+          {
+            "name": "new_monthly_claim_limit",
+            "type": "u16"
+          },
+          {
+            "name": "new_hard_kyc_threshold_usd_e6",
+            "type": "u64"
+          },
+          {
+            "name": "signer",
+            "type": "pubkey"
+          },
+          {
+            "name": "set_ts",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PopProfile",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "level",
+            "type": "u8"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "last_set_ts",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "UserLedger",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user",
+            "type": "pubkey"
+          },
+          {
+            "name": "ally_nft_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "rp_claimable_forca",
+            "type": "u64"
+          },
+          {
+            "name": "pp_balance",
+            "type": "u64"
+          },
+          {
+            "name": "hwm_claimed",
+            "type": "u64"
+          },
+          {
+            "name": "tax_hwm",
+            "type": "u64"
+          },
+          {
+            "name": "total_claimed_forca",
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "created_ts",
+            "type": "i64"
+          },
+          {
+            "name": "updated_ts",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "VaultInitialized",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "forca_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "fee_c_bps",
+            "type": "u16"
+          },
+          {
+            "name": "tax_d_bps",
+            "type": "u16"
+          },
+          {
+            "name": "margin_b_bps",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "VaultPauseEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "paused",
+            "type": "bool"
+          },
+          {
+            "name": "reason_code",
+            "type": "u16"
+          },
+          {
+            "name": "max_duration_secs",
+            "type": "u64"
+          },
+          {
+            "name": "set_ts",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "VaultState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "pop_admin",
+            "type": "pubkey"
+          },
+          {
+            "name": "econ_admin",
+            "type": "pubkey"
+          },
+          {
+            "name": "forca_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "fee_c_bps",
+            "type": "u16"
+          },
+          {
+            "name": "tax_d_bps",
+            "type": "u16"
+          },
+          {
+            "name": "margin_b_bps",
+            "type": "u16"
+          },
+          {
+            "name": "paused",
+            "type": "bool"
+          },
+          {
+            "name": "vault_signer_bump",
+            "type": "u8"
+          },
+          {
+            "name": "soft_daily_cap_usd_e6",
+            "type": "u64"
+          },
+          {
+            "name": "soft_cooldown_secs",
+            "type": "u64"
+          },
+          {
+            "name": "forca_usd_e6",
+            "type": "u64"
+          },
+          {
+            "name": "verify_prices",
+            "type": "bool"
+          },
+          {
+            "name": "oracle_tolerance_bps",
+            "type": "u16"
+          },
+          {
+            "name": "pyth_sol_usd_price_feed",
+            "type": "pubkey"
+          },
+          {
+            "name": "canonical_pool_forca_sol",
+            "type": "pubkey"
+          },
+          {
+            "name": "canonical_pool_forca_reserve",
+            "type": "pubkey"
+          },
+          {
+            "name": "canonical_pool_sol_reserve",
+            "type": "pubkey"
+          },
+          {
+            "name": "use_mock_oracle",
+            "type": "bool"
+          },
+          {
+            "name": "mock_oracle_locked",
+            "type": "bool"
+          },
+          {
+            "name": "pyth_max_stale_secs",
+            "type": "u64"
+          },
+          {
+            "name": "pyth_max_confidence_bps",
+            "type": "u16"
+          }
+        ]
+      }
+    }
+  ]
+}
