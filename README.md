@@ -19,6 +19,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 RPC_URL=https://api.devnet.solana.com \
 FLASHORCA_PUBLIC_ORIGIN=http://localhost:9000 \
+DEBUG=1 \
 python app.py
 ```
 
